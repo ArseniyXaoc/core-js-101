@@ -323,8 +323,23 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const bracketsConfig = [['(', ')'], ['[', ']'], ['{', '}'], ['<', '>']];
+  const brCfg = str.split('');
+  let ouput;
+  function del(str1) {
+    ouput = str1.slice();
+    bracketsConfig.forEach((item) => {
+      for (let i = 0; i < ouput.length; i += 1) {
+        if (ouput[i] === item[0] && ouput[i + 1] === item[1]) ouput.splice(i, 2);
+      }
+    });
+    if (ouput.length === 0) return true;
+    if (ouput.toString() === str1.toString()) return false;
+    return del(ouput);
+  }
+  const result = del(brCfg);
+  return result;
 }
 
 
@@ -348,8 +363,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -388,8 +403,22 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const rowA = m1.length;
+  const colsomnA = m1[0].length;
+  const rowB = m2.length;
+  const colonmB = m2[0].length;
+  const MatrixOut = [];
+  if (colsomnA !== rowB) return false;
+  for (let i = 0; i < rowA; i += 1) MatrixOut[i] = [];
+  for (let a = 0; a < colonmB; a += 1) {
+    for (let i = 0; i < rowA; i += 1) {
+      let t = 0;
+      for (let x = 0; x < rowB; x += 1) t += m1[i][x] * m2[x][a];
+      MatrixOut[i][a] = t;
+    }
+  }
+  return MatrixOut;
 }
 
 
